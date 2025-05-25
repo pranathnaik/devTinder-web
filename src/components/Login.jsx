@@ -8,6 +8,8 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,7 +28,7 @@ const Login = () => {
       dispatch(addUser(res.data));
       navigate("/");
     } catch (error) {
-      console.error("Login failed:", error);
+      setError(error?.response?.data || "Something went wrong");
     }
   };
   return (
@@ -58,6 +60,7 @@ const Login = () => {
               className="input input-bordered w-full max-w-xs"
             />
           </div>
+          <p className="text-red-500">{error}</p>
           <div className="form-control w-full max-w-xs mb-4">
             <button
               className="btn btn-primary w-full"
