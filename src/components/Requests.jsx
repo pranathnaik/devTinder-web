@@ -39,25 +39,40 @@ const Requests = () => {
   if (requests.length === 0) return <h1>No Requests Found</h1>;
 
   return (
-    <div className="justify-center my-10">
-      <h1 className="text-bold text-xl">New Requests</h1>
-      {requests.map((request) => (
-        <>
-          <div>{request.fromUserId.firstName}</div>
-          <button
-            className="btn btn-primary"
-            onClick={() => reviewRequest("rejected", request._id)}
-          >
-            Reject
-          </button>
-          <button
-            className="btn btn-secondary"
-            onClick={() => reviewRequest("accepted", request._id)}
-          >
-            Accept
-          </button>
-        </>
-      ))}
+    <div className="flex justify-center my-10">
+      <ul className="list bg-base-100 rounded-box shadow-md">
+        <li className="p-4 pb-2 text-bold  opacity-60 tracking-wide">
+          New Requests
+        </li>
+        {requests.map((request) => (
+          <li className="list-row">
+            <div>
+              <img
+                className="size-10 rounded-box"
+                src={request.fromUserId.photoUrl}
+              />
+            </div>
+            <div>
+              <div> {request.fromUserId.firstName}</div>
+              <div className="text-xs uppercase font-semibold opacity-60">
+                {request.fromUserId.about}
+              </div>
+            </div>
+            <button
+              className="btn btn-primary"
+              onClick={() => reviewRequest("rejected", request._id)}
+            >
+              Reject
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => reviewRequest("accepted", request._id)}
+            >
+              Accept
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

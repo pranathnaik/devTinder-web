@@ -10,7 +10,7 @@ const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [age, setAge] = useState(user.age || "");
-  const [gender, setGender] = useState(user.gender || "");
+  const [gender, setGender] = useState(user.gender || "other");
   const [about, setAbout] = useState(user.about || "");
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
   const [error, setError] = useState("");
@@ -34,7 +34,7 @@ const EditProfile = ({ user }) => {
 
       dispatch(addUser(res.data.data));
     } catch (error) {
-      setError(error.message);
+      setError(error?.response?.data || "Something went wrong");
     }
   };
 
@@ -53,7 +53,7 @@ const EditProfile = ({ user }) => {
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="Enter your email"
+                  placeholder="Enter your first name"
                   className="input input-bordered w-full max-w-xs"
                 />
               </div>
@@ -65,7 +65,7 @@ const EditProfile = ({ user }) => {
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  placeholder="Enter your password"
+                  placeholder="Enter your last name"
                   className="input input-bordered w-full max-w-xs"
                 />
               </div>
@@ -77,33 +77,36 @@ const EditProfile = ({ user }) => {
                   type="text"
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
-                  placeholder="Enter your password"
+                  placeholder="Enter your age"
                   className="input input-bordered w-full max-w-xs"
                 />
               </div>
               <div className="form-control w-full max-w-xs mb-4">
                 <label className="label">
-                  <span className="label-text">gender</span>
+                  <span className="label-text">Gender</span>
                 </label>
-                <input
-                  type="text"
-                  value={gender}
+                <select
+                  defaultValue={gender}
+                  className="select"
                   onChange={(e) => setGender(e.target.value)}
-                  placeholder="Enter your password"
-                  className="input input-bordered w-full max-w-xs"
-                />
+                >
+                  <option disabled={true}>Gender</option>
+                  <option>male</option>
+                  <option>female</option>
+                  <option>other</option>
+                </select>
               </div>
               <div className="form-control w-full max-w-xs mb-4">
                 <label className="label">
-                  <span className="label-text">about</span>
+                  <span className="label-text">About</span>
                 </label>
-                <input
-                  type="text"
+                <textarea
+                  className="textarea"
+                  placeholder="About"
                   value={about}
+                  maxLength={200}
                   onChange={(e) => setAbout(e.target.value)}
-                  placeholder="Enter your password"
-                  className="input input-bordered w-full max-w-xs"
-                />
+                ></textarea>
               </div>
               <div className="form-control w-full max-w-xs mb-4">
                 <label className="label">
